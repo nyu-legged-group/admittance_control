@@ -25,7 +25,7 @@ class Admittance_Controller:
         self.p = 0
 
         """Desired state"""
-        self.theta_d = 0.1
+        self.theta_d = traj[0]
         self.theta_d_dot = 0
 
         """Integrator"""
@@ -84,14 +84,13 @@ class Admittance_Controller:
 		e = theta_d - theta_0
 		"""
 
-        """
         theta_d_ddot = (1 / self.m) * (
             (self.F_ext / self.r)
             - self.b * (theta_d_dot - theta_0_dot)
             - self.k * (theta_d - theta_0)
         ) + theta_0_ddot
-        """
 
+        """
         theta_d_ddot = (
             self.F_ext / (self.m * self.r * np.cos(theta_d))
             - (self.b / self.m)
@@ -102,6 +101,7 @@ class Admittance_Controller:
             + (np.cos(theta_0) / np.cos(theta_d)) * theta_0_ddot
             - (np.sin(theta_0) / np.cos(theta_d)) * theta_0_dot ** 2
         )
+        """
 
         q_dot = np.array([[theta_d_dot], [theta_d_ddot]])
 
