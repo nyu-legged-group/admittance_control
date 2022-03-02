@@ -28,7 +28,7 @@ class Admittance_Controller:
         self.theta_d = traj[0]
         self.theta_d_dot = 0
 
-        """Integrator"""
+        # """Integrator"""
         # self.integrator = get_integrator(self.dt, self.q_dot)
 
     """Update"""
@@ -84,11 +84,16 @@ class Admittance_Controller:
 		e = theta_d - theta_0
 		"""
 
-        theta_d_ddot = (1 / self.m) * (
+        """
+        theta_d_ddot = ((1 / self.m) * (
             (self.F_ext / self.r)
             - self.b * (theta_d_dot - theta_0_dot)
             - self.k * (theta_d - theta_0)
-        ) + theta_0_ddot
+        )) + theta_0_ddot
+        """
+
+        theta_d_ddot = (1/self.m)*(self.F_ext - self.b *
+                                   (theta_d_dot - theta_0_dot) - self.k*(theta_d - theta_0_dot))
 
         """
         theta_d_ddot = (
